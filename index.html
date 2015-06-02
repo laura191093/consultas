@@ -1,0 +1,68 @@
+<!DOCTYPE html-->
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<title>Agencia-Alejandro-Bienvenidos</title>
+<script type="text/javascript">
+$(document).ready(function inicio(){
+
+ 
+  
+  var btnConsultaempleado=$("#consultarempleado");//consultar todos los registros
+  btnConsultaempleado.click(function consempleado(){  
+    $.ajax({
+    type:"POST",
+    url:"http://laura1910933.260mb.net/consultaClientes.php",
+    data:"",
+    success: consultaDatosempleado
+    });
+    
+    function consultaDatosempleado(datos){
+    var respDatos=$.parseJSON(datos);   
+    var respuesta=$("#resconsultaempleado");
+    dibujarTablaempleado(respuesta,respDatos);
+    }
+  });
+  
+  function dibujarTablaempleado(respuesta,respDatos){
+         respuesta.html("");
+    respuesta.append('<table id="tab" border="1">');
+    var tabla=$("#tab");
+    tabla.html("<tr><th>ID</th><th>Nombre</th><th>Direccion</th><th>Giro</th><th>Latitud</th><th>Altitud</th></tr>");
+    for(var i in respDatos){
+      tabla.append("<tr><td>"+respDatos[i].id+"</td>"
+      +"<td>"+respDatos[i].nombre+"</td>"
+      +"<td>"+respDatos[i].direccion+"</td>"
+      +"<td>"+respDatos[i].giro+"</td>"
+      +"<td>"+respDatos[i].latitud+"</td>"
+      +"<td>"+respDatos[i].altitud+"</td></tr>");
+    }
+    tabla.append("</table>");
+  }
+  
+  
+});
+</script>
+</head>
+<body>
+
+<div data-role="page" id="consultaempleado">
+  <div data-role="header" >  
+    <p>Consultar</p>
+  </div>
+  <div data-role="content">
+    <input type="button" id="consultarempleado" value="Consultar">
+    <div id="resconsultaempleado"></div>
+  </div>
+  <div data-role="footer">
+  <p>Derechos reservados</p>
+  </div>
+</div>
+
+</body>
+</html>
